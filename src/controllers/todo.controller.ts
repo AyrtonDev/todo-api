@@ -52,13 +52,26 @@ export const update = async (req: Request, res: Response) => {
 
   const todo = await Todo.findByPk(id);
 
-  if (title !== undefined || title !== String) {
-  }
-
-  const notTitle = !title;
-  const notDone = !done;
-
   if (todo) {
+    if (title) {
+      todo.title = title;
+    }
+
+    if (done) {
+      switch (done.toLowerCase()) {
+        case "true":
+        case "1":
+          todo.done = true;
+          break;
+        case "false":
+        case "0":
+          todo.done = false;
+          break;
+      }
+    }
+
+    await todo.save();
+    res.json({ item: todo });
   } else {
     res.status(404);
     res.json({ message: `Todo id ${id} was not find` });
