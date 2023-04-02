@@ -1,13 +1,13 @@
 import { Router } from "express";
 
-import * as apiController from "../controllers/todo.controller";
+import * as todoController from "../controllers/todo.controller";
 
 const router = Router();
 
-router.get("/todos", apiController.listTodos);
-router.get("/todo/:title", () => {});
-router.post("/todo", apiController.createTodo);
-router.put("/todo/:id", () => {});
-router.delete("/todo/:id", () => {});
+router.get("/todos", todoController.all);
+router.get("/todo/:id", todoController.one);
+router.post("/todo", todoController.create);
+router.put("/todo/:id", todoController.update);
+router.delete("/todo/:id", todoController.destroy);
 
 export default router;
